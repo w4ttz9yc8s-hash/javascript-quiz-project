@@ -14,8 +14,20 @@ class Quiz {
   // 4. shuffleQuestions()
 
   // 5. checkAnswer(answer)
-
+checkAnswer(answer) {
+  if (answer === this.questions[this.currentQuestionIndex].answer) {
+    this.correctAnswers += 1;
+  }
+}
   // 6. hasEnded()
+hasEnded () {
+  if (this.currentQuestionIndex < this.questions.length){
+    return false
+  }
+  else if (this.currentQuestionIndex === this.questions.length){
+    return true
+  }
+}
 
   /**
    * Modifies the questions array property to contain only the questions filtered with the specified difficulty (from 1 to 3)
