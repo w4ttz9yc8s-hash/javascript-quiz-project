@@ -158,17 +158,18 @@ startTimer();
       // Hint 3: You can use the `element.appendChild()` method to append an element to the choices container.
       // Hint 4: You can use the `element.innerText` property to set the inner text of an element.
 question.choices.forEach((choice) => {
-  
+
+const listItem = document.createElement("li")
 const radioInputElements = document.createElement("input")
 radioInputElements.type = "radio"
 radioInputElements.name ="choice"
 radioInputElements.value= choice
 
-choiceContainer.appendChild(radioInputElements)
+listItem.appendChild(radioInputElements)
 const labelElements = document.createElement("label")
 labelElements.innerText = choice
-choiceContainer.appendChild(labelElements)
-
+listItem.appendChild(labelElements)
+choiceContainer.appendChild(listItem)
 
 })
 
