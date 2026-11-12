@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Show first question
   showQuestion();
-  let currentQuestionIndex= 0 ;
+  let currentQuestionIndex = 0 ;
 
 
   /************  TIMER  ************/
@@ -92,7 +92,8 @@ startTimer();
     quizView.style.display = "block";
     quiz.currentQuestionIndex = 0;
     quiz.correctAnswers = 0;
-    quiz.timeRemaining = quizDuration;
+    quiz.timeRemaining = quizDuration
+    showQuestion();
   });
 
 
