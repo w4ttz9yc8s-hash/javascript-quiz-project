@@ -63,7 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /************  TIMER  ************/
 
-  let timer = setInterval(() => {
+  let timer;
+  
+  function startTimer() {
+    timer = setInterval(() => {
     quiz.timeRemaining -= 1;
     const minutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
     const seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
@@ -72,8 +75,9 @@ document.addEventListener("DOMContentLoaded", () => {
       clearInterval(timer);
     }
   }, 1000);
-  
+}
 
+startTimer();
 
 
   /************  EVENT LISTENERS  ************/
@@ -82,10 +86,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   
   restartButton.addEventListener("click", () => {
+    clearInterval(timer);
+    startTimer();
     endView.style.display = "none";
     quizView.style.display = "block";
     quiz.currentQuestionIndex = 0;
     quiz.correctAnswers = 0;
+    quiz.timeRemaining = quizDuration;
   });
 
 
