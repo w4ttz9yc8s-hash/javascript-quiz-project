@@ -130,45 +130,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
+    function nextButtonHandler () 
+    {
+      let selectedAnswer;
+      const choices = document.querySelectorAll("#choices input");
 
-  
-  function nextButtonHandler () {
-    let selectedAnswer; // A variable to store the selected answer value
+    for (let i = 0; i < choices.length; i++) 
+      {
+        if (choices[i].checked) 
+          {
+            selectedAnswer = choices[i].value;
+          }
+    }
 
-
-
-    // YOUR CODE HERE:
-    //
-    // 1. Get all the choice elements. You can use the `document.querySelectorAll()` method.
-
-
-    // 2. Loop through all the choice elements and check which one is selected
-      // Hint: Radio input elements have a property `.checked` (e.g., `element.checked`).
-      //  When a radio input gets selected the `.checked` property will be set to true.
-      //  You can use check which choice was selected by checking if the `.checked` property is true.
-
-      
-    // 3. If an answer is selected (`selectedAnswer`), check if it is correct and move to the next question
-      // Check if selected answer is correct by calling the quiz method `checkAnswer()` with the selected answer.
-      // Move to the next question by calling the quiz method `moveToNextQuestion()`.
-      // Show the next question by calling the function `showQuestion()`.
-  }  
+    if (selectedAnswer) 
+      {
+        quiz.checkAnswer(selectedAnswer);
+        quiz.moveToNextQuestion();
+        showQuestion();
+      }
+  }
 
 
-
-
-  function showResults() {
-
-    // YOUR CODE HERE:
-    //
-    // 1. Hide the quiz view (div#quizView)
+  function showResults() 
+  {
+    clearInterval(timer);
     quizView.style.display = "none";
-
-    // 2. Show the end view (div#endView)
     endView.style.display = "flex";
-    
-    // 3. Update the result container (div#result) inner text to show the number of correct answers out of total questions
-    resultContainer.innerText = `You scored 1 out of 1 correct answers!`; // This value is hardcoded as a placeholder
+    resultContainer.innerText = `You scored ${quiz.correctAnswers} out of ${quiz.questions.length} correct answers!`;
   }
   
 });
