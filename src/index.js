@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
   /************  HTML ELEMENTS  ************/
   // View divs
@@ -10,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const questionContainer = document.querySelector("#question");
   const choiceContainer = document.querySelector("#choices");
   const nextButton = document.querySelector("#nextButton");
+  const restartButton = document.querySelector("#restartButton");
+
 
   // End view elements
   const resultContainer = document.querySelector("#result");
@@ -55,17 +58,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Show first question
   showQuestion();
-let currentQuestionIndex= 0 ;
+  let currentQuestionIndex= 0 ;
 
 
   /************  TIMER  ************/
 
-  let timer
+  let timer = setInterval(() => {
+    quiz.timeRemaining -= 1;
+    const minutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
+    const seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+    timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+    if (quiz.timeRemaining <= 0) {
+      clearInterval(timer);
+    }
+  }, 1000);
+  
+
 
 
   /************  EVENT LISTENERS  ************/
 
   nextButton.addEventListener("click", nextButtonHandler);
+
+  
+  restartButton.addEventListener("click", () => {
+    endView.style.display = "none";
+    quizView.style.display = "block";
+    quiz.currentQuestionIndex = 0;
+    quiz.correctAnswers = 0;
+  });
 
 
 
@@ -99,7 +120,7 @@ let currentQuestionIndex= 0 ;
     //
     // 1. Show the question
     // Update the inner text of the question container element and show the question text
-questionContainer.innerText = question.text;
+    questionContainer.innerText = question.text;
     
     // 2. Update the green progress bar
     // Update the green progress bar (div#progressBar) width so that it shows the percentage of questions answered
@@ -142,13 +163,14 @@ choiceContainer.appendChild(labelElements)
 
 
 })
+
   }
 
     function nextButtonHandler () 
     {
       let selectedAnswer;
       const choices = document.querySelectorAll("#choices input");
-
+    
     for (let i = 0; i < choices.length; i++) 
       {
         if (choices[i].checked) 
